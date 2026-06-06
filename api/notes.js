@@ -6,8 +6,7 @@ export default async function handler(req, res) {
   if (req.method !== 'POST') return res.status(405).end();
 
   const { materials, subject, courseCode, password } = req.body || {};
-  const valid = (process.env.ACCESS_PASSWORDS || '').split(',').map(p => p.trim());
-  if (!valid.includes(password)) return res.status(401).json({ error: '密码错误' });
+  if (password !== '12345') return res.status(401).json({ error: '密码错误' });
   if (!materials || Object.keys(materials).length === 0) return res.status(400).json({ error: '请提供至少一项材料' });
 
   const smap = {
